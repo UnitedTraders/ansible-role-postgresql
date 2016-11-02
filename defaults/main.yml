@@ -16,8 +16,11 @@ postgresql_service_user: "{{ postgresql_admin_user }}"
 postgresql_service_group: "{{ postgresql_admin_user }}"
 postgresql_service_enabled: true
 
-postgresql_cluster_name: "main"
+postgresql_cluster_name: "data"
 postgresql_cluster_reset: false
+
+postgresql_service_name: "postgresql-{{ postgresql_version }}"
+postgresql_bin_directory: "/usr/pgsql-{{postgresql_version}}/bin"
 
 postgresql_database_owner: "{{ postgresql_admin_user }}"
 # Extensions
@@ -64,7 +67,7 @@ postgresql_hba_file: "{{postgresql_conf_directory}}/pg_hba.conf"
 # Ident configuration file
 postgresql_ident_file: "{{postgresql_conf_directory}}/pg_ident.conf"
 # Use data in another directory
-postgresql_varlib_directory_name: "postgresql"
+postgresql_varlib_directory_name: "pgsql"
 postgresql_data_directory: "/var/lib/{{ postgresql_varlib_directory_name }}/{{postgresql_version}}/{{postgresql_cluster_name}}"
 postgresql_pid_directory: "/var/run/postgresql"
 # If external_pid_file is not explicitly set, on extra PID file is written
@@ -82,8 +85,9 @@ postgresql_max_connections: 100
 postgresql_superuser_reserved_connections: 3
 
 postgresql_unix_socket_directory: ''    # (<= 9.2)
-postgresql_unix_socket_directories:     # (>= 9.3)
+postgresql_unix_socket_directories:
   - "{{ postgresql_pid_directory }}"
+  - /tmp
 postgresql_unix_socket_group: ''
 postgresql_unix_socket_permissions: '0777' # begin with 0 to use octal notation
 

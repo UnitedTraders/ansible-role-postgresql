@@ -7,7 +7,7 @@ galaxy_info:
   min_ansible_version: 1.9.4
   license: MIT
   platforms:
-  - name: Ubuntu
+  - name: Centos
     versions:
     - all
   categories:
