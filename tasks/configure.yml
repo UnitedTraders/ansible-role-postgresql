@@ -58,6 +58,7 @@
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
     mode: 0640
+    backup: "{{ postgresql_config_backup }}"
   notify: restart postgresql
 
 - name: PostgreSQL | Update configuration - pt. 2 (postgresql.conf)
@@ -68,6 +69,7 @@
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
     mode: 0640
+    backup: "{{ postgresql_config_backup }}"
   notify: restart postgresql
 
 - name: PostgreSQL | Update configuration - pt. 3 (pgtune)

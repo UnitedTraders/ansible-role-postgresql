@@ -53,6 +53,8 @@ postgresql_pg_hba_passwd_hosts: []
 postgresql_pg_hba_trust_hosts: []
 postgresql_pg_hba_custom: []
 
+postgresql_config_backup: 'no'
+
 
 # postgresql.conf
 
