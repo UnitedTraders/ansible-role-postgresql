@@ -111,9 +111,17 @@
     group: "{{ postgresql_service_group }}"
     mode: 0755
 
+- name: PostgreSQL | Copy the systemd unit in case we need another service name | RedHat
+  copy:
+    src: "/usr/lib/systemd/system/postgresql-{{ postgresql_version }}.service"
+    dest: "/etc/systemd/system/{{ postgresql_service_name }}.service"
+    remote_src: yes
+  when: ansible_os_family == "RedHat"
+  notify: restart postgresql
+
 - name: PostgreSQL | Ensure the systemd directory for PostgreSQL exists | RedHat
   file:
-    name: "/etc/systemd/system/postgresql-{{ postgresql_version }}.service.d"
+    name: "/etc/systemd/system/{{ postgresql_service_name }}.service.d"
     state: directory
     mode: 0755
   when: ansible_os_family == "RedHat"
@@ -121,7 +129,7 @@
 - name: PostgreSQL | Use the conf directory when starting the Postgres service | RedHat
   template:
     src: etc_systemd_system_postgresql.service.d_custom.conf.j2
-    dest: "/etc/systemd/system/postgresql-{{ postgresql_version }}.service.d/custom.conf"
+    dest: "/etc/systemd/system/{{ postgresql_service_name }}.service.d/custom.conf"
   when: ansible_os_family == "RedHat"
   notify: restart postgresql
 
