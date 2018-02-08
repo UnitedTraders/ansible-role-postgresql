@@ -1,0 +1,19 @@
+# file: postgresql/tasks/cleanup_archive.yml
+
+- name: PostgreSQL | Create script to cleanup archive
+  template:
+    src: pg_archive_cleanup.sh.j2
+    dest: "{{postgresql_bin_directory}}/pg_archive_cleanup.sh"
+    owner: "{{ postgresql_service_user }}"
+    group: "{{ postgresql_service_group }}"
+    mode: 0750
+  when: postgresql_archive_mode == "on"
+
+- name: PostgreSQL | Write archive cleanup script to cron
+  cron:
+    name: "pg_archive_cleanup"
+    minute: '20'
+    hour: '3'
+    user: "{{ postgresql_service_user }}"
+    job: "{{postgresql_bin_directory}}/pg_archive_cleanup.sh"
+  when: postgresql_archive_mode == "on"

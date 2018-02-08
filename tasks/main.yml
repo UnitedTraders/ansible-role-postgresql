@@ -18,3 +18,6 @@
 
 - include: users_privileges.yml
   tags: [postgresql, postgresql-users]
+
+- include: cleanup_archive.yml
+  tags: [postgresql, postgresql-cleanup]
