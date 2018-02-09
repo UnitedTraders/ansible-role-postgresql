@@ -255,6 +255,8 @@ postgresql_archive_command: ''
 # force a logfile segment switch after this
 postgresql_archive_timeout: 0
 
+postgresql_archive_cleanup_days: 14
+
 
 #------------------------------------------------------------------------------
 # REPLICATION
