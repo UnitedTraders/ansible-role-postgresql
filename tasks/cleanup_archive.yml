@@ -7,7 +7,7 @@
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
     mode: 0750
-  when: postgresql_archive_mode == "on"
+  when: postgresql_archive_mode
 
 - name: PostgreSQL | Write archive cleanup script to cron
   cron:
@@ -16,4 +16,4 @@
     hour: '3'
     user: "{{ postgresql_service_user }}"
     job: "{{postgresql_bin_directory}}/pg_archive_cleanup.sh"
-  when: postgresql_archive_mode == "on"
+  when: postgresql_archive_mode
