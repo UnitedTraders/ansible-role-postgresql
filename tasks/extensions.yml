@@ -1,4 +1,4 @@
 # file: postgresql/tasks/extensions.yml
 
-- include: extensions/contrib.yml
+- import_tasks: extensions/contrib.yml
   when: postgresql_ext_install_contrib
