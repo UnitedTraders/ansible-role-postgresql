@@ -88,3 +88,9 @@
   failed_when: citext_ext_result.rc != 0 and ("already exists, skipping" not in citext_ext_result.stderr)
   changed_when: citext_ext_result.rc == 0 and ("already exists, skipping" not in citext_ext_result.stderr)
   when: item.citext is defined and item.citext
+
+- name: PostgreSQL | Set PostgreSQL running state to {{ postgresql_service_started }}
+  service:
+    name: "{{ postgresql_service_name }}"
+    state: stopped
+  when: not postgresql_service_started

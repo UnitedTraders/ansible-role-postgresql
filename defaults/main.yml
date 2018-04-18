@@ -15,6 +15,7 @@ postgresql_default_auth_method: "trust"
 postgresql_service_user: "{{ postgresql_admin_user }}"
 postgresql_service_group: "{{ postgresql_admin_user }}"
 postgresql_service_enabled: true
+postgresql_service_started: true
 
 postgresql_cluster_name: "data"
 postgresql_cluster_reset: false
