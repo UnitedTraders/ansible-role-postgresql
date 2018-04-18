@@ -17,3 +17,9 @@
   become_user: "{{postgresql_admin_user}}"
   with_items: "{{postgresql_users}}"
   when: postgresql_users|length > 0
+
+- name: PostgreSQL | Set PostgreSQL running state to {{ postgresql_service_started }}
+  service:
+    name: "{{ postgresql_service_name }}"
+    state: stopped
+  when: not postgresql_service_started
