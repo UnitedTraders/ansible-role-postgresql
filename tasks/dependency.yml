@@ -1,0 +1,30 @@
+# Check for docker dependency
+
+- name: Check if Docker is enabled
+  command: systemctl is-enabled docker
+  ignore_errors: yes
+  changed_when: false
+  register: service_docker_status
+  become: true
+
+- name: Enable postgresql deps from docker
+  block:
+  - name: make systemd config dir
+    file:
+      path: "/etc/systemd/system/{{ postgresql_service_name }}.service.d"
+      state: directory
+      mode: 0755
+
+  - name: Enable postgresql deps from docker
+    template:
+      src: docker_deps.conf.j2
+      dest: "/etc/systemd/system/{{ postgresql_service_name }}.service.d/docker_deps.conf"
+    notify: daemon reload
+  when: postgresql_after_docker is defined and postgresql_after_docker and service_docker_status is succeeded
+
+- name: Disable postgresql deps from docker
+  file:
+    path: "/etc/systemd/system/{{ postgresql_service_name }}.service.d/docker_deps.conf"
+    state: absent
+  notify: daemon reload
+  when: postgresql_after_docker is not defined or not postgresql_after_docker or service_docker_status is not succeeded
