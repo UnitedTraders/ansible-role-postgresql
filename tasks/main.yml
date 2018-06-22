@@ -21,3 +21,7 @@
 
 - import_tasks: cleanup_archive.yml
   tags: [postgresql, postgresql-cleanup]
+
+- import_tasks: dependency.yml
+  when: ansible_os_family == "RedHat"
+  tags: [postgresql, postgresql-deps]

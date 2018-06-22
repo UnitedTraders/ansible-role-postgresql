@@ -5,3 +5,6 @@
     name: "{{ postgresql_service_name }}"
     state: restarted
   listen: "restart postgresql"
+
+- name: daemon reload
+  systemd: daemon_reload=yes

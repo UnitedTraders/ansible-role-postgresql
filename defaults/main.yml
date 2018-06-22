@@ -24,6 +24,10 @@ postgresql_service_name: "postgresql-{{ postgresql_version }}"
 postgresql_bin_directory: "/usr/pgsql-{{postgresql_version}}/bin"
 
 postgresql_database_owner: "{{ postgresql_admin_user }}"
+
+# Depency postgresql from docker service
+postgresql_after_docker: False
+
 # Extensions
 postgresql_ext_install_contrib: no
 postgresql_ext_install_dev_headers: no
